@@ -4,6 +4,6 @@ This image comes with apache2. Also note that /vagrant in guest system will be m
 
 The following should get you going with vagrant:
 
-$ vagrant init hashicorp/bionic64
-
+```
 $ vagrant up
+```

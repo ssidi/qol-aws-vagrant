@@ -64,8 +64,17 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision :shell, path: "bootstrap.sh"
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get install -y unzip
+    apt-get install -y apache2
+    apt-get install -y python3-pip
+    TERRAFORM_VERSION="0.12.24"
+    curl -fsSL -O "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+  SHELL
 end
